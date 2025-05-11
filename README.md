@@ -1,7 +1,7 @@
 # GaRoPE - Golden Angle Rotary Position Embedding
 
 GaRoPE is a parameter free, memory efficient rotary position embedding
-scheme that eliminates phase aliasing across millions of tokens while
+scheme that could eliminate phase aliasing across millions of tokens while
 remaining a drop in replacement for classic RoPE.
 
 | Property                 | Classic RoPE | GaRoPE |
