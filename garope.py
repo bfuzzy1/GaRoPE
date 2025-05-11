@@ -16,11 +16,7 @@ class GaRoPERotaryEmbedding(nn.Module):
     (linear, logarithmic, and square root) with golden ratio based weights.
     This construction ensures the rotations never alias, regardless of sequence length.
 
-    The phase angle for each channel is:
-        θ_{p,k} = ω_k * [ϕ^{-k} * p + ϕ^{-(k+1)} * log(1+p) + ϕ^{-(k+2)} * sqrt(p)]
-    where ϕ is the golden ratio and ω_k is the standard RoPE frequency scaling.
-
-    Only (seq_len × n) tables for cos/sin are stored, not (seq_len × dim).
+    Only (seq_len x n) tables for cos/sin are stored, not (seq_len x dim).
     Optionally, the lowest frequency channel can be skipped (zeroed).
 
     Args:
@@ -99,7 +95,7 @@ def apply_rotary_pos_emb(
         sin (torch.Tensor): Sine table of shape (seq_len, n), where n = head_dim // 2.
 
     Returns:
-        torch.Tensor: Output tensor of the same shape as `x`, with rotary embedding applied.
+        torch.Tensor: Output tensor of the same shape as x, with rotary embedding applied.
     """
     b, L, h, d = x.shape
     n = d // 2
