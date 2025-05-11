@@ -25,8 +25,8 @@ same angle and the model confuses them (aliasing).
 GaRoPE fixes this by:
 
 * **Blending three analytic generators**: `p`, `sqrt(p)`, `log(1+p)`.
-* **Weighting them with golden ratio powers**: phi^(-k), phi^{-(k+1)}, phi^{-(k+2)}
-  --> incommensurate periods <--> no exact wrap around.
+* **Weighting them with golden ratio powers**: using phi to the negative k, k+1, and k+2 ensures their "periods" don’t line up cleanly. Since the golden ratio is irrational, these components never sync up exactly. Meaning the rotations never wrap around or alias, no matter how long the sequence gets.
+
 * **Freezing the extreme planes**: (lowest & highest) to act as stable bias
   channels.
 * **Selective sqrt(phi) boost**: for mid bands --> finite condition number.
