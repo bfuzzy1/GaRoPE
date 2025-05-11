@@ -66,15 +66,15 @@ python bench.py --dim 512 --seq 1000000 --channel median --thresh 0.999
 | **Lowest** | Alias distance (tokens) | 602 | None (none) |
 |            | Monotone violations     | 499952 | **0** |
 |            | Spearman ρ              | 0.0002 | **1.0000** |
-|            | Condition # (2x2048)    | 1.03e 0 | None (plane frozen) |
+|            | Condition # (2x2048)    | 1.03e0 | None (plane frozen) |
 | **Median** | Alias distance          | 63 | None (none) |
 |            | Monotone violations     | 499982 | **0** |
 |            | Spearman ρ              | -0.0000 | **1.0000** |
-|            | Condition #             | 1.00e 0 | 4.59e 25* |
+|            | Condition #             | 1.00e0 | 4.59e25* |
 | **Highest**| Alias distance          | 44 | None (none) |
 |            | Monotone violations     | 499997 | **0** |
 |            | Spearman ρ              | 0.0000 | **1.0000** |
-|            | Condition #             | 1.00e 0 | None (plane frozen) |
+|            | Condition #             | 1.00e0 | None (plane frozen) |
 
 *The median channel’s phase remains so small that the 2x2048 rotation
 matrix is nearly rank 1; while "k" is large, gradients through that plane
