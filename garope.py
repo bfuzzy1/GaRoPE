@@ -1,33 +1,3 @@
-"""
-garope.py
-
-GaRoPE: Golden Angle Rotary Position Embedding
-----------------------------------------------
-
-A rotary embedding that never aliases, no matter how long your sequence is....done with the maths.
-
-What's the deal?
-
-Instead of the usual single frequency rotation, GaRoPE mixes three different "phase generators":
-linear (p), logarithmic (log(1+p)), and square root (sqrt(p)).
-
-Each of those gets a different golden ratio based weight. Their periods never line up, so the rotation never repeats..."magic".
-
-The formula for the phase (angle) is:
-
-θ_{p,k} = ω_k * [ ϕ^{-k} * p + ϕ^{-(k+1)} * log(1+p) + ϕ^{-(k+2)} * sqrt(p) ]
-
-where ϕ = (1+√5)/2 (the golden ratio), and ω_k is the usual RoPE frequency scaling.
-
-We only store (seq_len × n) tables for cos/sin, not (seq_len × dim).
-
-One extra trick after building the angle matrix, is we multiply only the "middle" frequency channels (indices 1 to n-2) by sqrt(ϕ). 
-The lowest and highest frequency channels are left alone. 
-
-This keeps the math "well behaved" and the rotations stable, but still gives us infinite alias distance.
-
-"""
-
 from __future__ import annotations
 import torch
 from torch import nn
@@ -40,7 +10,7 @@ BASE = 10_000.0
 SCALE = PHI
 
 class GaRoPERotaryEmbedding(nn.Module):
-    """Golden‑Angle Rotary Position Embedding (GaRoPE).
+    """Golden Angle Rotary Position Embedding (GaRoPE).
 
     GaRoPE is a rotary embedding that combines three phase generators
     (linear, logarithmic, and square root) with golden ratio based weights.
