@@ -11,7 +11,7 @@ class RoPERotaryEmbedding(torch.nn.Module):
         self.register_buffer("inv_freq", inv_freq)
     def forward(self, seq_len, *, device=None, dtype=torch.float32):
         device = device or self.inv_freq.device
-        p = torch.arange(seq_len, device=device, dtype=torch.float64)[:, None]
+        p = torch.arange(seq_len, device=device, dtype=torch.float32)[:, None]
         angles = p * self.inv_freq[None, :]
         cos = torch.repeat_interleave(torch.cos(angles), 2, dim=-1).to(dtype)
         sin = torch.repeat_interleave(torch.sin(angles), 2, dim=-1).to(dtype)
@@ -38,7 +38,7 @@ def spearman(cos_vec):
     return float((sim_rank*dist_rank).mean()/(sim_rank.std()*dist_rank.std()+1e-9))
 
 def cond(cos_row, sin_row):
-    s = torch.linalg.svdvals(torch.vstack([cos_row, sin_row]).double())
+    s = torch.linalg.svdvals(torch.vstack([cos_row, sin_row]).float())
     return float((s.max()/s.min()).item())
 
 if __name__ == "__main__":
