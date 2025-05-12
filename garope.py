@@ -35,10 +35,10 @@ class GaRoPERotaryEmbedding(nn.Module):
         self.skip_lowest = skip_lowest
 
         n = dim // 2
-        inv_freq = BASE ** (-torch.arange(0, n, dtype=torch.float64, device=device) / n)
+        inv_freq = BASE ** (-torch.arange(0, n, dtype=torch.float32, device=device) / n)
         self.register_buffer("inv_freq", inv_freq, persistent=False)
 
-        g = PHI ** (-torch.arange(0, n + 2, dtype=torch.float64, device=device))
+        g = PHI ** (-torch.arange(0, n + 2, dtype=torch.float32, device=device))
         self.register_buffer("g", g, persistent=False)
 
     def forward(self, seq_len: int, *,
@@ -57,7 +57,7 @@ class GaRoPERotaryEmbedding(nn.Module):
             where n = head_dim // 2.
         """
         device = device or self.inv_freq.device
-        p = torch.arange(seq_len, dtype=torch.float64, device=device)
+        p = torch.arange(seq_len, dtype=torch.float32, device=device)
 
         f_lin = p[:, None]
         f_log = torch.log1p(p)[:, None]
